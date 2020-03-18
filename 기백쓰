@@ -1,0 +1,295 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@page import="java.util.Calendar"%>
+<%@ include file="../include/dbcon.jsp" %>
+
+    <!-- select 문을 통한 member 데이터 값 가져오기 -->
+<%
+		
+	String sql = " select unq,name,title,date,hit from member "
+	           + " order by unq desc";
+		ResultSet rs = stmt.executeQuery(sql);
+%>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Main</title>
+</head>
+	<style>
+* {
+margin: 0;
+padding: 0;
+font-family: 맑은 고딕;
+}
+a {
+text-decoration: none;
+text-align: center;
+}
+li {
+list-style: none;
+}
+
+#header {
+width: 900px;
+height: 40px;
+border-left: 1px solid black;
+border-right: 1px solid black;
+border-top: 1px solid black;
+margin: 0 auto;
+padding-bottom: 10px;
+}
+
+#nav {
+width: 900px;
+height: 50px;
+margin: 0 auto;
+position: relative;
+background-color: lightblue;
+border-left: 1px solid black;
+border-right: 1px solid black;
+}
+.mainmenu {
+float: left;
+}
+.mainmenu> li { /*메인메뉴+서브메뉴 한 묶음*/
+float: left;
+display: inline-block;
+}
+
+.mainmenu> li> a { /*메인메뉴 글자만*/
+display: block;
+width: 150px;
+text-align: center;
+line-height: 3.3;
+font-size: 15px;
+font-weight: bolder;
+color: #444444;
+}
+
+.submenu { /*큰 메뉴 내의 서브메뉴 여러개*/
+display: none;
+width: 150px;
+background-color: pink;
+position: absolute; /*롤오버되는 서브메뉴 위치 조정 -> 레이어 외부에 새로운 형태로 나타나는 것*/
+}
+
+.submenu> li { /*각각의 모든 서브메뉴들*/
+height: 50px;
+
+}
+.submenu > li > a { /*서브메뉴 안의 글자*/
+line-height: 3.3;
+text-align: center;
+display: block;
+color: #444444;
+}
+
+.mainmenu > li:hover .submenu{ /*부모ul요소에 마우스 오버시, 자식 ul요소가 나타남*/
+display: block; /*글자 보이게 하기*/
+}
+
+#img{
+width: 900px;
+height: 400px;
+border-left: 1px solid black;
+border-right: 1px solid black;
+margin: 0 auto;
+background-image: url("tanga-102577_1280.jpg");
+background-size: contain;
+background-repeat: no-repeat;
+background-position: center;
+}
+
+#img .word {
+font-size: 25px;
+color: white;
+float:right;
+margin-top: 300px;
+margin-right: 200px;
+font-weight: bold;
+}
+
+#content2 {
+width: 900px;
+height: 700px;
+border: 1px solid black;
+margin: 0 auto; /*top-bottom for 0, left-right for auto*/
+margin-bottom: 30px;
+}
+
+
+.box1{
+width:600px;
+height: 640px;
+border: 1px solid black;
+margin-top: 20px;
+margin-right: 30px;
+float:right;
+padding:10px;
+}
+
+.sidebox {
+width:185px;
+height:300px;
+border: 1px solid black;
+float:left;
+margin-left: 30px;
+margin-top: 20px;
+padding: 10px;
+}
+
+#footer {
+width: 900px;
+height: 50px;
+border: 1px solid black;
+margin: 0 auto;
+padding-left: 5px;
+padding-top: 5px;
+text-align: center;
+}
+</style>
+
+<style>
+.a {
+	font-size:13px;
+	margin-left:5px;
+}
+.sidemain {
+	font-weight:bold;
+	font-size:18px;
+}
+.box {
+	width:600px;
+	height:550px;
+	border: 1px solid black;
+	margin-top: 20px;
+	margin-right: 30px;
+	float:right;
+	padding:10px;
+}
+.contentMain {
+	font-size:20px;
+	font-weight:bold;
+	color:brown;
+	padding:10px;
+}
+</style>
+
+<body>
+<div id="header">
+<img src="unhcr.png" width=60px height=100%>
+1조 팀 프로젝트 (김기백, 김민경, 김도환, 박민주)
+</div>
+<div id="nav">
+<ul class="mainmenu">
+	<li><a href="">Menu1</a>
+		<ul class="submenu">
+			<li><a href="">Sub menu 1-1</a></li>
+			<li><a href="">Sub menu 1-2</a></li>
+			<li><a href="">Sub menu 1-3</a></li>
+		</ul>
+	</li>
+	<li><a href="">Menu2</a>
+		<ul class="submenu">
+			<li><a href="">Sub menu 2-1</a></li>
+			<li><a href="">Sub menu 2-2</a></li>
+			<li><a href="">Sub menu 2-3</a></li>
+		
+		</ul>
+	</li>
+	<li><a href="">후원</a>
+		<ul class="submenu">
+			<li><a href="">후원하기</a></li>
+			<li><a href="">후원정보</a></li>
+		</ul>
+	</li>
+		<li><a href="mSub1.jsp">고객센터</a>
+		<ul class="submenu">
+	<li><a href="mSub1.jsp">회원게시판</a></li>
+	<li><a href="qSub1.jsp">질문게시판</a></li>
+		</ul>
+		</li>
+</ul>
+</div>
+<div id="img">
+	<div class="word">당신의 선물로<br>아기의 생명을 지킬 수 있어요.</div>
+</div>
+<div id="content2">
+	<form name="frm" method="post" action="mSub1Write.jsp">
+	<div class="sidebox">
+			<li class="sidemain"><a href="mSub1.jsp">회원게시판</a>
+				<ul class="a">
+					<li><a href="mSub1.jsp">모임활동</a></li>
+					<li><a href="mSub2.jsp">대규모 해외봉사</a></li>
+				</ul>
+			</li>
+			
+			<br>
+			
+			<li class="sidemain"><a href="qSub1.jsp">질문게시판</a>
+				<ul class="a">
+					<li><a href="qSub1.jsp">1:1 문의</a></li>
+				</ul>
+			</li>
+	</div>
+	<div class="box">
+			<div>
+			<img src="unhcr.png" style="width:100px;">
+			</div>
+				<div class="contentMain">[ 모임활동 게시판 ]</div>
+			<div style="float:right;">
+				<select name="">
+					<option value="title">제목</option>
+					<option value="name">작성자</option>
+				</select>
+			<input type="text" name="search">
+			<button type="button" style="width:40px;height:20px;margin-right:5px;">검색</button>
+			</div>
+			<div style="margin-top:30px;">
+			<table border="0" cellspacing="1" bgcolor="#cccccc" width="590" height="45" align="center">
+				<tr bgcolor="#ffffff" style="text-align:center;background-color:skyblue;font-size:15px;">
+					<td style="width:40px;padding:5px;">번호</td>
+					<td style="width:65px;padding:5px;">작성자</td>
+					<td>제목</td>
+					<td style="width:100px;padding:5px;">날짜</td>
+					<td style="width:45px;padding:5px;">조회수</td>
+				</tr>
+				<%
+				int number = 1;
+					while (rs.next()) {
+						String unq = rs.getString("unq");
+						String name = rs.getString("name");
+						String title = rs.getString("title");
+						String hit = rs.getString("hit");
+						String date = rs.getString("date");
+					
+						
+				%>
+				<tr bgcolor="#ffffff" align="center">
+					<td><%=number %></td>
+					<td><%=name %></td>
+					<td><a href="mSub1Detail.jsp?unq=<%=unq %>&date=<%=date %>"><%=title %></a></td>
+					<td><%=date %></td>
+					<td><%=hit %></td>
+				</tr>
+				<%
+						number++;
+					}
+				%>
+			</table>
+				<div align="right">
+					<input type="submit" value="글쓰기" style="margin-right:5px;margin-top:10px;width:60px;height:25px;">
+				</div>
+			</div>
+	</div>
+	</form>	
+</div>
+<div id="footer">
+<p>유엔난민기구는 난민을 보호하고 영구적인 해결방안을 모색하는 비정치적-인도주의적 유엔기구입니다.</p>
+<p>유엔난민기구(UNHCR) 고유번호 104-84-05025 | 대표자 : 제임스 린치 | Tel : 02-773-7701</p>
+</div>
+</body>
+</html>
